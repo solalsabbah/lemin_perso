@@ -31,7 +31,7 @@
 # define RRB 10
 # define RRR 11
 
-typedef struct	s_param
+typedef struct	s_data
 {	
 	int			nb; // count of element in stack 
 	int			i;  // used for table of operands
@@ -43,7 +43,7 @@ typedef struct	s_param
 	int			sens;
 	void		*a1;
 	void		*b1;
-}				t_param;
+}				t_data;
 
 typedef struct s_file t_file;
 
@@ -52,5 +52,7 @@ struct s_file
 	char		*line;
 	t_file		*next;
 };
+
+void	add_end(t_file **file);
 
 #endif

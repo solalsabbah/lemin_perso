@@ -1,26 +1,16 @@
 #include "lemin.h"
 
-void	add_end(t_file **file)
+void	parser(t_file *file)
 {
-	t_file *tmp;
+	int	nb_ants;
 
-	tmp = *file;
-	if (*file == NULL)
+	while (file)
 	{
-		(*file) = malloc(sizeof(t_file));
-		(*file)->line = NULL;
-		(*file)->next = NULL;
-		tmp = *file;
+		if (ft_strcmp(file->line, "##start") == 0)
+			nb_ants = ft_atoi(file->next->line);	
+		file = file->next;
 	}
-	else
-	{
-		while ((*file)->next != NULL)
-			*file = (*file)->next;
-		(*file)->next = malloc(sizeof(t_file));
-		(*file)->next->line = NULL;
-		(*file)->next->next = NULL;
-	}
-	*file = tmp;
+	printf("[%d]\n", nb_ants);
 }
 
 int	main(void)
@@ -37,10 +27,6 @@ int	main(void)
 		file = file->next;
 	}
 	file = tmp;
-	while (file)
-	{
-		printf("%s\n", file->line);
-		file = file->next;
-	}
+	parser(file);
 	return (0);
 }

@@ -20,7 +20,7 @@ INC_DIR = inc/
 
 
 LEMIN_SRC =	lemin.c\
-
+		add_end.c\
 		
 LEMIN_OBJ = $(LEMIN_SRC:.c=.o)
 
