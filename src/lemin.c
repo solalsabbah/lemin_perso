@@ -1,18 +1,5 @@
 #include "lemin.h"
 
-void	parser(t_file *file)
-{
-	int	nb_ants;
-
-	while (file)
-	{
-		if (ft_strcmp(file->line, "##start") == 0)
-			nb_ants = ft_atoi(file->next->line);	
-		file = file->next;
-	}
-	printf("[%d]\n", nb_ants);
-}
-
 int	main(void)
 {
 	t_file *file;

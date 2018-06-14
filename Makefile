@@ -21,7 +21,8 @@ INC_DIR = inc/
 
 LEMIN_SRC =	lemin.c\
 		add_end.c\
-		
+		parser.c\
+
 LEMIN_OBJ = $(LEMIN_SRC:.c=.o)
 
 VPATH= src/

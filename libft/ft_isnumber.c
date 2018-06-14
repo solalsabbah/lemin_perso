@@ -18,7 +18,11 @@ int	ft_isnumber(char *str)
 
 	i = 0;
 	if (str[i] == '-')
+	{
+		if (str[i + 1] == '\0')
+			return (0);
 		i++;
+	}
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')

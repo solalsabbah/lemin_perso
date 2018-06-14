@@ -31,18 +31,17 @@
 # define RRB 10
 # define RRR 11
 
+typedef struct s_node
+{
+    unsigned int key;
+    struct s_node *left;
+    struct s_node *right;
+} t_node ;
+
 typedef struct	s_data
 {	
-	int			nb; // count of element in stack 
-	int			i;  // used for table of operands
-	int			min;
-	int			max;
-	int			med;
-	int			min_med;
-	int			max_med;
-	int			sens;
-	void		*a1;
-	void		*b1;
+	int			start;
+	int			end;
 }				t_data;
 
 typedef struct s_file t_file;
@@ -54,5 +53,6 @@ struct s_file
 };
 
 void	add_end(t_file **file);
+int	parser(t_file *file);
 
 #endif
