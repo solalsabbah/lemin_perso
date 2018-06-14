@@ -6,7 +6,7 @@
 #    By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/11 17:25:57 by ssabbah           #+#    #+#              #
-#    Updated: 2018/06/04 19:02:32 by ssabbah          ###   ########.fr        #
+#    Updated: 2018/06/14 15:32:43 by ssabbah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRC =  is_int.c \
 	   ft_strsplit.c \
 	   ft_strstr.c \
 	   ft_strsub.c \
+	   ft_strtrim.c\
 	   ft_tolower.c \
 	   ft_toupper.c \
 	   get_next_line.c \
