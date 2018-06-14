@@ -6,7 +6,7 @@
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:35:06 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/14 15:34:13 by ssabbah          ###   ########.fr       */
+/*   Updated: 2018/06/14 17:57:25 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 typedef struct s_node
 {
-    unsigned int val;
+    char *room;
     struct s_node *brother;
     struct s_node *children;
 
@@ -41,8 +41,9 @@ typedef struct s_node
 
 typedef struct	s_data
 {	
-	int			start;
-	int			end;
+	char		*start;
+	char		*end;
+	int			ants;
 }				t_data;
 
 typedef struct	s_links
@@ -62,6 +63,9 @@ struct s_file
 };
 
 void	add_end(t_file **file);
-int	parser(t_file *file);
+void	add_links(t_links **l, char *a, char *b);
+
+int	 	is_link(char *line, t_links **l);
+int		parser(t_file *file);
 
 #endif

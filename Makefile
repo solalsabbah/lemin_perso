@@ -6,7 +6,7 @@
 #    By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/21 15:32:49 by ssabbah           #+#    #+#              #
-#    Updated: 2018/06/12 13:12:32 by ssabbah          ###   ########.fr        #
+#    Updated: 2018/06/14 17:33:45 by ssabbah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ INC_DIR = inc/
 LEMIN_SRC =	lemin.c\
 		add_end.c\
 		parser.c\
+		is_link.c\
+		add_links.c\
 
 LEMIN_OBJ = $(LEMIN_SRC:.c=.o)
 
