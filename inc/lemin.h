@@ -34,8 +34,8 @@
 typedef struct s_node
 {
     char *room;
-    struct s_node *brother;
-    struct s_node *children;
+    struct s_node *bro;
+    struct s_node *child;
 
 } t_node ;
 
