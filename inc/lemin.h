@@ -64,8 +64,10 @@ struct s_file
 
 void	add_end(t_file **file);
 void	add_links(t_links **l, char *a, char *b);
+void	del_link(t_links **l, t_links *elem);
 
 int	 	is_link(char *line, t_links **l);
 int		parser(t_file *file);
+int	mytree(t_links *l, t_data *data);
 
 #endif

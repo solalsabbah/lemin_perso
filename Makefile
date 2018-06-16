@@ -22,8 +22,10 @@ INC_DIR = inc/
 LEMIN_SRC =	lemin.c\
 		add_end.c\
 		parser.c\
+		tree.c\
 		is_link.c\
 		add_links.c\
+		del_link.c\
 
 LEMIN_OBJ = $(LEMIN_SRC:.c=.o)
 
