@@ -6,16 +6,19 @@
 3 16 3 4 16 5 593 615 748
 ##end
 50 9 5 
-0-4 12 
-salle 1 - salle 2 
-salle 3- salle 4 
-8-3
+0-4
+
+10-3 
 10-2
-3-5
-#autre commentaire
-4-2
 10-8
-7-6
 4-10
+
+3-8
+3-5
+
+#autre commentaire
+
+4-2
+7-6
 7-4
-6-10
+6-5

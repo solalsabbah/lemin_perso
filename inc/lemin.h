@@ -19,25 +19,15 @@
 # include <stdio.h>
 # include "../libft/libft.h"
 
-# define SA 1
-# define SB 2
-# define SS 3
-# define PA 4
-# define PB 5
-# define RA 6
-# define RB 7
-# define RR 8
-# define RRA 9 
-# define RRB 10
-# define RRR 11
+typedef struct s_node t_node;
 
-typedef struct s_node
+struct s_node
 {
     char *room;
-    struct s_node *bro;
-    struct s_node *child;
+    t_node *bro;
+    t_node *child;
 
-} t_node ;
+};
 
 typedef struct	s_data
 {	
