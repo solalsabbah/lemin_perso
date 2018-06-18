@@ -4,9 +4,11 @@ int	create_tree(t_links **l, t_node **tree)
 {
 	void 	*tmp;
 	t_links	*tmp_l;
-//	t_node	*rec;
-
 	tmp_l = *l;
+
+	printf("tree room\n");
+	printf("tree ===%p===\n", tree);
+	printf("tree ===[%s]===\n\n", (*tree)->room); // pas de tree->room 
 
 	///// Find a child ////
 	while (*l && (*tree)->child == NULL)
@@ -19,7 +21,6 @@ int	create_tree(t_links **l, t_node **tree)
 				tmp = (*tree)->child;
 				(*tree)->child->room = (*l)->b;
 				del_link(&tmp_l, *l);
-		//		printf("Rec Room  %s\n", (*rec).room);
 				create_tree(&tmp_l, &(**tree).child);
 			}
 			if (ft_strcmp((*l)->b, (*tree)->room) == 0)
@@ -28,38 +29,46 @@ int	create_tree(t_links **l, t_node **tree)
 				tmp = (*tree)->child;
 				(*tree)->child->room = (*l)->a;
 				del_link(&tmp_l, *l);
+				create_tree(&tmp_l, &(**tree).child);
 			}
-	//		if (rec) 	
-	//			printf("Rec Room  %s\n", (*rec).room);
 		}
 		(*l) = (*l)->next;
 	}
+	printf("tree ===[%s]===\n", (*tree)->room); // pas de tree->room 
+	printf("child [%s]\n\n", (*tree)->child->room);
+	printf("WTF happens exit \n");
 	*l = tmp_l;
-//	*tree = (*tree)->child;
 
 	//// Find the brothers ///
-	printf("tree ===%s===\n", (*tree)->room);
-	while (*l)
-	{	
-		if (ft_strcmp((*l)->a, (*tree)->room) == 0 && (*tree)->child->room != NULL)
-		{
-			(*tree)->child->bro = malloc(sizeof(t_node));
-			(*tree)->child->bro->room = (*l)->b;
-			(*tree)->child = (*tree)->child->bro;
-			del_link(&tmp_l, *l);
-			printf("tmp 1 %s\n", (*tree)->child->room);
-			//tree = (&tree)->child;
-			//create_tree(&tmp_l, tree);
+	//printf("tree ===%s===\n", (*tree)->room);
+	if ((*tree)->child != NULL)
+	{
+	printf("WTF happens still  print \n");
+		while (*l)
+		{	
+//			printf("WTF happens still  print \n");
+//		printf("child [%s]\n", (*tree)->child->room);
+			if (ft_strcmp((*l)->a, (*tree)->room) == 0 && (*tree)->child->room != NULL)
+			{
+				(*tree)->child->bro = malloc(sizeof(t_node));
+				(*tree)->child->bro->room = (*l)->b;
+				printf("tree bro room ===%s===\n", (*tree)->child->bro->room); // pas de tree->room 
+				del_link(&tmp_l, *l);
+				create_tree(&tmp_l, &(**tree).child->bro);
+				(*tree)->child = (*tree)->child->bro;
+			}
+			else if (ft_strcmp((*l)->b, (*tree)->room) == 0 && (*tree)->child->room != NULL)
+			{
+				(*tree)->child->bro = malloc(sizeof(t_node));
+				(*tree)->child->bro->room = (*l)->a;
+				del_link(&tmp_l, *l);
+				create_tree(&tmp_l, &(**tree).child->bro);
+				(*tree)->child = (*tree)->child->bro;
+			}
+			(*l) = (*l)->next;
 		}
-		else if (ft_strcmp((*l)->b, (*tree)->room) == 0 && (*tree)->child->room != NULL)
-		{
-			(*tree)->child->bro = malloc(sizeof(t_node));
-			(*tree)->child->bro->room = (*l)->a;
-			(*tree)->child = (*tree)->child->bro;
-			del_link(&tmp_l, *l);
-		}
-		(*l) = (*l)->next;
 	}
+	printf("Ca segfault\n");
 	(*tree)->child = tmp;
 	*l = tmp_l;
 	return (0);
@@ -72,8 +81,8 @@ int	mytree(t_links *l, t_data *data)
 	tree = malloc(sizeof(t_node));
 	tree->room = data->start;
 
-	printf("Pointeur A  %p\n\n", tree);
-	printf("Pointeur B  %p\n\n", &tree);
+	//	printf("Pointeur A  %p\n\n", tree);
+	//	printf("Pointeur B  %p\n\n", &tree);
 	create_tree(&l, &tree);
 
 	printf("======= TREE =======\n\n");
