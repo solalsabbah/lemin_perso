@@ -4,12 +4,10 @@ int	create_tree(t_links **l, t_node **tree)
 {
 	void 	*tmp;
 	t_links	*tmp_l;
+//	t_node	*rec;
 
 	tmp_l = *l;
-	
-	printf("Pointeur C  %p\n", tree);
-	printf("Pointeur C  %p\n", (*tree)->child);
-	printf("Pointeur D  %p\n", tmp_l);
+
 	///// Find a child ////
 	while (*l && (*tree)->child == NULL)
 	{
@@ -21,9 +19,8 @@ int	create_tree(t_links **l, t_node **tree)
 				tmp = (*tree)->child;
 				(*tree)->child->room = (*l)->b;
 				del_link(&tmp_l, *l);
-				printf("Pointeur F  %p\n", &tree);
-		//		*tree = (*tree)->child;
-		//		create_tree(&tmp_l, tree);
+		//		printf("Rec Room  %s\n", (*rec).room);
+				create_tree(&tmp_l, &(**tree).child);
 			}
 			if (ft_strcmp((*l)->b, (*tree)->room) == 0)
 			{
@@ -32,12 +29,16 @@ int	create_tree(t_links **l, t_node **tree)
 				(*tree)->child->room = (*l)->a;
 				del_link(&tmp_l, *l);
 			}
+	//		if (rec) 	
+	//			printf("Rec Room  %s\n", (*rec).room);
 		}
 		(*l) = (*l)->next;
 	}
 	*l = tmp_l;
+//	*tree = (*tree)->child;
 
 	//// Find the brothers ///
+	printf("tree ===%s===\n", (*tree)->room);
 	while (*l)
 	{	
 		if (ft_strcmp((*l)->a, (*tree)->room) == 0 && (*tree)->child->room != NULL)
@@ -64,11 +65,6 @@ int	create_tree(t_links **l, t_node **tree)
 	return (0);
 }
 
-//			printf("%s\n", (*l)->b);
-//			printf("tmp %p %s\n", tmp_l, tmp_l->next->b);
-//			printf("tmp %p %s\n", tmp_l, tmp_l->b);
-//			printf("bef [%s]\n\n", (*tree)->child->room);
-
 int	mytree(t_links *l, t_data *data)
 {
 	t_node *tree;
@@ -88,6 +84,8 @@ int	mytree(t_links *l, t_data *data)
 	printf("child [%s]\n", tree->child->bro->room);
 	printf("child [%s]\n", tree->child->bro->bro->room);
 	printf("child [%s]\n\n", tree->child->bro->bro->bro->room);
+	printf("child child  [%s]\n", tree->child->child->room);
+	printf("child child  [%s]\n", tree->child->child->bro->room);
 	printf("=================\n\n\n");
 
 	printf("======= LIST OF ROOMS  =======\n\n");

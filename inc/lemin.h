@@ -6,7 +6,7 @@
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:35:06 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/14 17:57:25 by ssabbah          ###   ########.fr       */
+/*   Updated: 2018/06/18 12:47:58 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 
 typedef struct s_node t_node;
 
-struct s_node
+struct		s_node
 {
-    char *room;
-    t_node *bro;
-    t_node *child;
+   	char	*room;
+    t_node	*bro;
+    t_node	*child;
 
 };
 
