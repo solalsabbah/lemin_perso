@@ -6,7 +6,7 @@
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:35:06 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/18 12:47:58 by ssabbah          ###   ########.fr       */
+/*   Updated: 2018/06/26 18:31:08 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ typedef struct	s_data
 	int			ants;
 }				t_data;
 
+typedef struct s_queue t_queue;
+
+struct s_queue
+{
+	int		room;
+	t_queue *next;
+};
+
 typedef struct	s_links
 {	
 	char			*a;
@@ -56,6 +64,7 @@ void	add_end(t_file **file);
 void	add_links(t_links **l, char *a, char *b);
 void	del_link(t_links **l, t_links *elem);
 
+int		place_bro(t_links **l, t_node **tree, void *tmp);
 int	 	is_link(char *line, t_links **l);
 int		parser(t_file *file);
 int	mytree(t_links *l, t_data *data);

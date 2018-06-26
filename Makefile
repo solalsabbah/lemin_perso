@@ -6,14 +6,14 @@
 #    By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/21 15:32:49 by ssabbah           #+#    #+#              #
-#    Updated: 2018/06/25 16:31:41 by ssabbah          ###   ########.fr        #
+#    Updated: 2018/06/26 18:27:42 by ssabbah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 LEMIN = lem-in
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror
 LIBFT= -Llibft -lft
 
 INC_DIR = inc/

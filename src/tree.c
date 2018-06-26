@@ -6,11 +6,27 @@
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 16:42:21 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/25 17:21:56 by ssabbah          ###   ########.fr       */
+/*   Updated: 2018/06/26 18:33:08 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+int	print_file(t_links **l)
+{
+	t_links *tmp_l;
+
+	tmp_l = *l;
+	printf("=============\nPRINTFILE\n");
+	while (*l)
+	{
+		printf("[%s]-[%s]\n", (*l)->a, (*l)->b);
+		*l = (*l)->next;
+	}
+	printf("=============\n");
+	*l = tmp_l;
+	return (0);
+}
 
 int	create_tree(t_links **l, t_node **tree)
 {
@@ -18,12 +34,15 @@ int	create_tree(t_links **l, t_node **tree)
 	t_links	*tmp_l;
 	tmp_l = *l;
 
+	
+	//printf("tree room %s\n", (*tree)->room);
 	///// Find a child ////
 	while (*l && (*tree)->child == NULL)
 	{
 		if (ft_strcmp((*l)->a, (*tree)->room) == 0)
 		{
 			(*tree)->child = malloc(sizeof(t_node));
+			(*tree)->child->room = NULL;
 			tmp = (*tree)->child;
 			(*tree)->child->room = (*l)->b;
 			del_link(&tmp_l, *l);
@@ -33,6 +52,7 @@ int	create_tree(t_links **l, t_node **tree)
 		else if (ft_strcmp((*l)->b, (*tree)->room) == 0)
 		{
 			(*tree)->child = malloc(sizeof(t_node));
+			(*tree)->child->room = NULL;
 			tmp = (*tree)->child;
 			(*tree)->child->room = (*l)->a;
 			del_link(&tmp_l, *l);
@@ -42,33 +62,29 @@ int	create_tree(t_links **l, t_node **tree)
 		(*l) = (*l)->next;
 	}
 	*l = tmp_l;
-
+	
 	//// Find the brothers ///
-	if ((*tree)->child != NULL)
+	if ((*tree)->child != NULL && (*tree)->child->room != NULL)
 	{
-		printf("room %s\n", (*tree)->room);
 		while (*l)
-		{	
+		{
 			if (ft_strcmp((*l)->a, (*tree)->room) == 0 && (*tree)->child && (*tree)->child->room != NULL)
 			{
-				printf("Im in\n");
 				(*tree)->child->bro = malloc(sizeof(t_node));
+				(*tree)->child->bro->child = NULL;
+				(*tree)->child->bro->bro = NULL;
 				(*tree)->child->bro->room = (*l)->b;
-				printf("create room %s\n", (*tree)->child->bro->room);
 				del_link(&tmp_l, *l);
-				//			printf("ici [%s]\n", (*tree)->child->bro->room);
 				create_tree(&tmp_l, &(**tree).child->bro);
-			//	(*tree)->child = (*tree)->child->bro;
 			}
 			else if (ft_strcmp((*l)->b, (*tree)->room) == 0 && (*tree)->child && (*tree)->child->room != NULL)
 			{
-				printf("Im here\n");
 				(*tree)->child->bro = malloc(sizeof(t_node));
+				(*tree)->child->bro->child = NULL;
+				(*tree)->child->bro->bro = NULL;
 				(*tree)->child->bro->room = (*l)->a;
-				printf("bro room %s\n", (*tree)->child->bro->room);
 				del_link(&tmp_l, *l);
 				create_tree(&tmp_l, &(**tree).child->bro);
-			//	(*tree)->child = (*tree)->child->bro;
 			}
 			(*l) = (*l)->next;
 		}
@@ -81,11 +97,14 @@ int	create_tree(t_links **l, t_node **tree)
 int	mytree(t_links *l, t_data *data)
 {
 	t_node *tree;
-
+	void *tmp;
 	tree = malloc(sizeof(t_node));
 	tree->room = data->start;
 
+	tmp = &l;
 	create_tree(&l, &tree);
+	printf("======= FILE =======\n\n");
+	
 	while (l)
 	{
 		printf("[%s]-[%s]\n", l->a, l->b);
@@ -95,20 +114,23 @@ int	mytree(t_links *l, t_data *data)
 	printf("======= TREE =======\n\n");
 
 	printf("parent [%s]\n", tree->room);
-	printf("child [%s]\n", tree->child->bro->child->room);
+	printf("tree child bro [%s]\n", tree->child->room);
+	printf("tree child bro [%s]\n", tree->child->bro->room);
+	//printf("tree child bro [%s]\n", tree->child->bro->bro->room);
 	printf("child [%s]\n", tree->child->child->room);
+	printf("child [%s]\n", tree->child->child->bro->room);
+	printf("child [%s]\n", tree->child->child->bro->child->room);
+
+	printf("child [%s]\n", tree->child->bro->child->room);
 	printf("child [%s]\n", tree->child->child->child->room);
 	printf("child [%s]\n", tree->child->child->child->child->room);
 	printf("child [%s]\n", tree->child->child->child->child->child->room);
 
-	//	printf("parent [%s]\n", tree->child->bro->room);
-
-	//	printf("child [%s]\n", tree->child->bro->child->bro->room);
+		printf("child [%s]\n", tree->child->bro->child->room);
 	/*	printf("child [%s]\n\n", tree->child->bro->bro->room);
 		printf("child child  [%s]\n", tree->child->child->room);
 		printf("child child  [%s]\n", tree->child->child->bro->room);
 		*/	printf("=================\n\n\n");
 
-	printf("======= LIST OF ROOMS  =======\n\n");
 	return (0);
 }
