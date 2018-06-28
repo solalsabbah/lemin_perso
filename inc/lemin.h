@@ -19,13 +19,13 @@
 # include <stdio.h>
 # include "../libft/libft.h"
 
-typedef struct s_node t_node;
+typedef struct s_room t_room;
 
-struct		s_node
+struct		s_room
 {
-   	char	*room;
-    t_node	*bro;
-    t_node	*child;
+   	char	*name;
+    	int	nb;
+    t_room	*next;
 
 };
 
@@ -40,7 +40,7 @@ typedef struct s_queue t_queue;
 
 struct s_queue
 {
-	int		room;
+	int	room;
 	t_queue *next;
 };
 
@@ -64,9 +64,12 @@ void	add_end(t_file **file);
 void	add_links(t_links **l, char *a, char *b);
 void	del_link(t_links **l, t_links *elem);
 
+void	init(int *col, int *father, int *dist);
+
 int		place_bro(t_links **l, t_node **tree, void *tmp);
 int	 	is_link(char *line, t_links **l);
 int		parser(t_file *file);
-int	mytree(t_links *l, t_data *data);
+int		mytree(t_links *l, t_data *data);
+int		solve(t_links **l, t_data *data);
 
 #endif
