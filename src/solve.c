@@ -6,22 +6,22 @@
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 14:02:08 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/28 17:14:21 by ssabbah          ###   ########.fr       */
+/*   Updated: 2018/06/28 18:06:49 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	init(int *col, int *father, int *dist /*room in parameter*/)
+void	init(int *col, int *father, int *dist, t_data *data /*room in parameter*/)
 {
 	int a;
 
 	a = 0;
-	while (a < 8)
+	while (a < data->rooms)
 	{
 		col[a] = 0;
 		father[a] = 0;
-		dist[a] = 8;
+		dist[a] = data->rooms + 1;
 		a++;
 	}
 	col[a] = -1;
@@ -114,11 +114,11 @@ int solve(t_cnx **cnx, t_data *data)
 	int	*father;
 
 	queue = malloc(sizeof(t_queue));
-	col = malloc(sizeof(int) * 9);
-	father = malloc(sizeof(int) * 9);
-	dist = malloc(sizeof(int) * 9);
+	col = malloc(sizeof(int) * data->rooms);
+	father = malloc(sizeof(int) * data->rooms);
+	dist = malloc(sizeof(int) * data->rooms);
 
-	init(col, father, dist);
+	init(col, father, dist, data);
 	queue->room = ft_atoi(data->start);
 	col[queue->room] = 1;
 	dist[queue->room] = 0;

@@ -6,7 +6,7 @@
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 16:24:05 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/28 17:40:49 by ssabbah          ###   ########.fr       */
+/*   Updated: 2018/06/28 18:00:33 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	find_id(char *name, t_room **room)
 		{
 			nb = (*room)->nb;
 			*room = tmp;
-			printf("je suis la\n");
 			return (nb);
 		}
 		*room = (*room)->next;
@@ -39,14 +38,8 @@ void	add_cnx(t_links **l, t_room **room, t_data *data)
 	void	*tmp;
 	t_cnx	*cnx;
 
+	cnx = malloc(sizeof(t_cnx));
 	tmp = cnx;
-
-/*	while (*room)
-	{
-		printf("%8s %d\n", (*room)->name, (*room)->nb);
-		*room = (*room)->next;
-	}
-*/
 	while (*l)
 	{
 		cnx->a = find_id((*l)->a, room);
@@ -57,10 +50,5 @@ void	add_cnx(t_links **l, t_room **room, t_data *data)
 		*l = (*l)->next;
 	}
 	cnx = tmp;
-	while (cnx)
-	{
-		printf("%4d %d\n", cnx->a, cnx->b);
-		cnx = cnx->next;
-	}
-//	solve(&cnx, data); //SOLVE 
+	solve(&cnx, data);
 }
