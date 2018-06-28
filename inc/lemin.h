@@ -33,6 +33,7 @@ typedef struct	s_data
 {	
 	char		*start;
 	char		*end;
+	int		rooms;
 	int			ants;
 }				t_data;
 
@@ -73,7 +74,7 @@ void	del_cnx(t_cnx **cnx, t_cnx *elem);
 
 void	add_cnx(t_links **l, t_room **room, t_data *data);
 
-void	init(int *col, int *father, int *dist);
+void	init(int *col, int *father, int *dist, t_data *data);
 
 int		add_to_room(char *name, t_room **room);
 int		assign_nb(t_links **l, t_data *data);

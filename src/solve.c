@@ -17,7 +17,7 @@ void	init(int *col, int *father, int *dist, t_data *data /*room in parameter*/)
 	int a;
 
 	a = 0;
-	while (a < data->rooms)
+	while (a <= data->rooms)
 	{
 		col[a] = 0;
 		father[a] = 0;
@@ -108,9 +108,9 @@ int	algo(int *col, int *father, int *dist, t_queue *queue, t_cnx **cnx)
 
 int solve(t_cnx **cnx, t_data *data)
 {
-	t_queue *queue;
-	int *col;
-	int *dist;
+	t_queue	*queue;
+	int	*col;
+	int	*dist;
 	int	*father;
 
 	queue = malloc(sizeof(t_queue));
@@ -119,6 +119,16 @@ int solve(t_cnx **cnx, t_data *data)
 	dist = malloc(sizeof(int) * data->rooms);
 
 	init(col, father, dist, data);
+	
+	
+	int a = 0;
+	while (a <= data->rooms)
+	{
+		printf("%d\n", col[a]);
+		a++;
+	}
+		printf("%d\n", col[7]);
+//	exit (0);
 	queue->room = ft_atoi(data->start);
 	col[queue->room] = 1;
 	dist[queue->room] = 0;
