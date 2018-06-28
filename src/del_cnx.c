@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_link.c                                          :+:      :+:    :+:   */
+/*   del_cnx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/14 17:32:21 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/28 15:10:27 by ssabbah          ###   ########.fr       */
+/*   Created: 2018/06/28 17:10:12 by ssabbah           #+#    #+#             */
+/*   Updated: 2018/06/28 17:14:02 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int	 	is_link(char *line, t_links **l)
+void	del_cnx(t_cnx **cnx, t_cnx *elem)
 {
-	int i;
-	int	a;
+	t_cnx *tmp;
 
-	i = 0;
-	a = 0;
-	if (line[0] == '\0' || line[0] == 'L' || line[0] == '#' || line[0] == '-')
-		return (0);
-	while (line[i])
+	tmp = *cnx;
+	if ((*cnx) == elem)
 	{
-		if (line[i] == '-')
-		{
-			if (a > 0)
-				return (0);
-			a = i;
-		}
-		i++;
+		(*cnx) = (*cnx)->next;
+		tmp = *cnx;
 	}
-	if (a == 0)
-		return (0);
-	add_links(l, ft_strtrim(ft_strsub(line, 0, a)), ft_strtrim(ft_strsub(line, a + 1, i)));
-	return (1);
+	else
+	{
+		while ((*cnx)->next != elem)
+			(*cnx) = (*cnx)->next;
+		(*cnx)->next = elem->next;
+	}
+	free(elem);
+	elem = NULL;
+	*cnx = tmp;
 }

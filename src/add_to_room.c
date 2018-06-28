@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_link.c                                          :+:      :+:    :+:   */
+/*   add_to_room.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/14 17:32:21 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/28 15:10:27 by ssabbah          ###   ########.fr       */
+/*   Created: 2018/06/28 16:39:50 by ssabbah           #+#    #+#             */
+/*   Updated: 2018/06/28 16:40:09 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int	 	is_link(char *line, t_links **l)
+int	add_to_room(char *name, t_room **room)
 {
-	int i;
-	int	a;
-
-	i = 0;
-	a = 0;
-	if (line[0] == '\0' || line[0] == 'L' || line[0] == '#' || line[0] == '-')
-		return (0);
-	while (line[i])
+	if ((*room)->name == NULL)
 	{
-		if (line[i] == '-')
-		{
-			if (a > 0)
-				return (0);
-			a = i;
-		}
-		i++;
-	}
-	if (a == 0)
+		(*room)->name = name;
+		(*room)->nb = 0;
+		(*room)->next = NULL;
 		return (0);
-	add_links(l, ft_strtrim(ft_strsub(line, 0, a)), ft_strtrim(ft_strsub(line, a + 1, i)));
+	}
+	while ((*room)->next)
+	{
+		if (ft_strcmp((*room)->name, name) == 0)
+			return (0);
+		*room = (*room)->next;
+	}
+	if (ft_strcmp((*room)->name, name) == 0)
+		return (0);
+	(*room)->next = malloc(sizeof(t_room));
+	(*room)->next->name = name;
+	(*room)->next->nb = (*room)->nb + 1;
+	(*room)->next->next = NULL;
 	return (1);
 }

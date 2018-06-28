@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solve.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/28 14:02:08 by ssabbah           #+#    #+#             */
+/*   Updated: 2018/06/28 17:14:21 by ssabbah          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lemin.h"
 
 void	init(int *col, int *father, int *dist /*room in parameter*/)
@@ -17,62 +29,62 @@ void	init(int *col, int *father, int *dist /*room in parameter*/)
 	dist[a] = -1;
 }
 
-int	algo(int *col, int *father, int *dist, t_queue *queue, t_links **l /*room in parameter*/)
+int	algo(int *col, int *father, int *dist, t_queue *queue, t_cnx **cnx)
 {
 	int 	u;
-	t_links *tmp;
+	t_cnx *tmp;
 	void 	*adr;
 	void 	*start;
 
-	tmp = *l;
+	tmp = *cnx;
 	start = queue;
 	while (queue)
 	{
 		u = queue->room;
 		adr = queue;
-		while (*l) // parcours la liste des voisins
+		while (*cnx) // parcours la liste des voisins
 		{
-			if (ft_atoi((*l)->a) == u) // voisin de U (l->a)
+			if ((*cnx)->a == u) // voisin de U (l->a)
 			{
-				if (col[ft_atoi((*l)->b)] == 0) // couleur de v = Blanc ?
+				if (col[(*cnx)->b] == 0) // couleur de v = Blanc ?
 				{
-					col[ft_atoi((*l)->b)] = 1;
-					dist[ft_atoi((*l)->b)] = dist[u] + 1;
-					father[ft_atoi((*l)->b)] = u;
+					col[(*cnx)->b] = 1;
+					dist[(*cnx)->b] = dist[u] + 1;
+					father[(*cnx)->b] = u;
 					while (queue->next)
 						queue = queue->next;
 					queue->next = malloc(sizeof(t_queue));
-					queue->next->room = ft_atoi((*l)->b);
+					queue->next->room = (*cnx)->b;
 					queue->next->next = NULL;
 					queue = queue->next;
-					del_link(&tmp, *l);
+					del_cnx(&tmp, *cnx);
 				}
 			}
-			else if (ft_atoi((*l)->b) == u) // voisin de U
+			else if ((*cnx)->b == u) // voisin de U
 			{
-				if (col[ft_atoi((*l)->a)] == 0)
+				if (col[(*cnx)->a] == 0)
 				{
-					col[ft_atoi((*l)->a)] = 1;
-					dist[ft_atoi((*l)->a)] = dist[u] + 1;
-					father[ft_atoi((*l)->a)] = u;
+					col[(*cnx)->a] = 1;
+					dist[(*cnx)->a] = dist[u] + 1;
+					father[(*cnx)->a] = u;
 					while (queue->next)
 						queue = queue->next;
 					queue->next = malloc(sizeof(t_queue));
-					queue->next->room = ft_atoi((*l)->a);
+					queue->next->room = (*cnx)->a;
 					queue->next->next = NULL;
 					queue = queue->next;
-					del_link(&tmp, *l);
+					del_cnx(&tmp, *cnx);
 				}
 			}
-			*l = (*l)->next;
+			*cnx = (*cnx)->next;
 		}
-		*l = tmp;
+		*cnx = tmp;
 		queue = adr;
 		if (queue && u == queue->room)
 			queue = queue->next;
 		col[u] = 2;
 	}
-	*l = tmp;
+	*cnx = tmp;
 
 	int a;
 
@@ -86,15 +98,15 @@ int	algo(int *col, int *father, int *dist, t_queue *queue, t_links **l /*room in
 	printf("distance %d\n", dist[7]);
 	printf("distance %d\n", dist[4]);
 	printf("distance %d\n", dist[3]);
-	while (*l)
+	while (*cnx)
 	{
-		printf("[%s]-[%s]\n", (*l)->a, (*l)->b);
-		*l = (*l)->next;
+		printf("[%d]-[%d]\n", (*cnx)->a, (*cnx)->b);
+		*cnx = (*cnx)->next;
 	}
 	return (0);
 }
 
-int solve(t_links **l, t_data *data)
+int solve(t_cnx **cnx, t_data *data)
 {
 	t_queue *queue;
 	int *col;
@@ -110,6 +122,6 @@ int solve(t_links **l, t_data *data)
 	queue->room = ft_atoi(data->start);
 	col[queue->room] = 1;
 	dist[queue->room] = 0;
-	algo(col, father, dist, queue, l);
+	algo(col, father, dist, queue, cnx);
 	return (0);
 }

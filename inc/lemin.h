@@ -6,7 +6,7 @@
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:35:06 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/26 18:31:08 by ssabbah          ###   ########.fr       */
+/*   Updated: 2018/06/28 17:10:55 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,14 @@ typedef struct	s_links
 	char			*a;
 	char			*b;
 	struct s_links	*next;
-}				t_links;
+}					t_links;
+
+typedef struct	s_cnx
+{	
+	int				a;
+	int				b;
+	struct s_cnx	*next;
+}					t_cnx;
 
 typedef struct s_file t_file;
 
@@ -62,14 +69,17 @@ struct s_file
 
 void	add_end(t_file **file);
 void	add_links(t_links **l, char *a, char *b);
-void	del_link(t_links **l, t_links *elem);
+void	del_cnx(t_cnx **cnx, t_cnx *elem);
+
+void	add_cnx(t_links **l, t_room **room, t_data *data);
 
 void	init(int *col, int *father, int *dist);
 
-int		place_bro(t_links **l, t_node **tree, void *tmp);
+int		add_to_room(char *name, t_room **room);
+int		assign_nb(t_links **l, t_data *data);
 int	 	is_link(char *line, t_links **l);
 int		parser(t_file *file);
 int		mytree(t_links *l, t_data *data);
-int		solve(t_links **l, t_data *data);
+int		solve(t_cnx **cnx, t_data *data);
 
 #endif

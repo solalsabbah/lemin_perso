@@ -6,7 +6,7 @@
 #    By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/21 15:32:49 by ssabbah           #+#    #+#              #
-#    Updated: 2018/06/26 18:27:42 by ssabbah          ###   ########.fr        #
+#    Updated: 2018/06/28 17:10:22 by ssabbah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,14 @@ INC_DIR = inc/
 
 LEMIN_SRC =	lemin.c\
 		add_end.c\
+		add_to_room.c\
 		parser.c\
 		solve.c\
 		is_link.c\
 		add_links.c\
-		del_link.c\
+		del_cnx.c\
+		assign_nb.c\
+		convert.c\
 
 LEMIN_OBJ = $(LEMIN_SRC:.c=.o)
 

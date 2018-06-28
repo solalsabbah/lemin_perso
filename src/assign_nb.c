@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   del_link.c                                         :+:      :+:    :+:   */
+/*   assign_nb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/26 16:18:01 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/26 16:32:54 by ssabbah          ###   ########.fr       */
+/*   Created: 2018/06/28 15:17:15 by ssabbah           #+#    #+#             */
+/*   Updated: 2018/06/28 17:24:47 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	del_link(t_links **l, t_links *elem)
+int	assign_nb(t_links **l, t_data *data)
 {
-	t_links *tmp;
+	void	*tmp;
+	void	*tmp_l;
+	t_room	*room;
 
-	tmp = *l;
-	if ((*l) == elem)
+	tmp = room;
+	tmp_l = *l;
+	
+	while (*l)
 	{
+		add_to_room((*l)->a, &room);
+		add_to_room((*l)->b, &room);
 		(*l) = (*l)->next;
-		tmp = *l;
+		room = tmp;
 	}
-	else
+	*l = tmp_l;
+
+/*	while (room)
 	{
-		while ((*l)->next != elem)
-			(*l) = (*l)->next;
-		(*l)->next = elem->next;
-	}
-	free(elem);
-	elem = NULL;
-	*l = tmp;
+		printf("%8s %d\n", room->name, room->nb);
+		room = room->next;
+	}*/
+	add_cnx(l, &room, data);
+	return (0);
 }

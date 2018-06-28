@@ -6,7 +6,7 @@
 /*   By: ssabbah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:34:35 by ssabbah           #+#    #+#             */
-/*   Updated: 2018/06/26 19:53:06 by ssabbah          ###   ########.fr       */
+/*   Updated: 2018/06/28 17:15:41 by ssabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	parser(t_file *file)
 			is_link(file->line, &l);
 		file = file->next;
 	}
-	solve(&l, &data);
+	assign_nb(&l, &data);
 	return (1);
 }
