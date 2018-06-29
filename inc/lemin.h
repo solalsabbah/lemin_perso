@@ -32,7 +32,9 @@ struct		s_room
 typedef struct	s_data
 {	
 	char		*start;
+	int		start_id;
 	char		*end;
+	int		end_id;
 	int		rooms;
 	int			ants;
 }				t_data;
@@ -59,6 +61,14 @@ typedef struct	s_cnx
 	struct s_cnx	*next;
 }					t_cnx;
 
+typedef struct	s_tabs
+{	
+	int				*col;
+	int				*dist;
+	int				*father;
+}					t_tabs;
+
+
 typedef struct s_file t_file;
 
 struct s_file
@@ -72,9 +82,9 @@ void	add_end(t_file **file);
 void	add_links(t_links **l, char *a, char *b);
 void	del_cnx(t_cnx **cnx, t_cnx *elem);
 
-void	add_cnx(t_links **l, t_room **room, t_data *data);
 
-void	init(int *col, int *father, int *dist, t_data *data);
+void	add_cnx(t_links **l, t_room **room, t_data *data);
+void	init_tabs(int *col, int *father, int *dist, t_data *data);
 
 int		add_to_room(char *name, t_room **room);
 int		assign_nb(t_links **l, t_data *data);

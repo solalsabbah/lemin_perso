@@ -12,24 +12,21 @@
 
 #include "lemin.h"
 
-void	init(int *col, int *father, int *dist, t_data *data /*room in parameter*/)
+void	fill_tabs(t_tabs *tabs, t_queue *queue, int cnx, int u)
 {
-	int a;
+	tabs->col[cnx] = 1;
+	tabs->dist[cnx] = tabs->dist[u] + 1;
+	tabs->father[cnx] = u;
+	while (queue->next)
+		queue = queue->next;
+	queue->next = malloc(sizeof(t_queue));
+	queue->next->room = cnx;
+	queue->next->next = NULL;
+	queue = queue->next;
 
-	a = 0;
-	while (a <= data->rooms)
-	{
-		col[a] = 0;
-		father[a] = 0;
-		dist[a] = data->rooms + 1;
-		a++;
-	}
-	col[a] = -1;
-	father[a] = -1;
-	dist[a] = -1;
 }
 
-int	algo(int *col, int *father, int *dist, t_queue *queue, t_cnx **cnx)
+int	algo(t_tabs *tabs, t_queue *queue, t_cnx **cnx)
 {
 	int 	u;
 	t_cnx *tmp;
@@ -44,37 +41,15 @@ int	algo(int *col, int *father, int *dist, t_queue *queue, t_cnx **cnx)
 		adr = queue;
 		while (*cnx) // parcours la liste des voisins
 		{
-			if ((*cnx)->a == u) // voisin de U (l->a)
+			if ((*cnx)->a == u && tabs->col[(*cnx)->b] == 0) //voisin de u et  couleur de v = Blanc ?
 			{
-				if (col[(*cnx)->b] == 0) // couleur de v = Blanc ?
-				{
-					col[(*cnx)->b] = 1;
-					dist[(*cnx)->b] = dist[u] + 1;
-					father[(*cnx)->b] = u;
-					while (queue->next)
-						queue = queue->next;
-					queue->next = malloc(sizeof(t_queue));
-					queue->next->room = (*cnx)->b;
-					queue->next->next = NULL;
-					queue = queue->next;
-					del_cnx(&tmp, *cnx);
-				}
+				fill_tabs(tabs, queue, (*cnx)->b, u);
+				del_cnx(&tmp, *cnx);
 			}
-			else if ((*cnx)->b == u) // voisin de U
+			else if ((*cnx)->b == u && tabs->col[(*cnx)->a] == 0)
 			{
-				if (col[(*cnx)->a] == 0)
-				{
-					col[(*cnx)->a] = 1;
-					dist[(*cnx)->a] = dist[u] + 1;
-					father[(*cnx)->a] = u;
-					while (queue->next)
-						queue = queue->next;
-					queue->next = malloc(sizeof(t_queue));
-					queue->next->room = (*cnx)->a;
-					queue->next->next = NULL;
-					queue = queue->next;
-					del_cnx(&tmp, *cnx);
-				}
+				fill_tabs(tabs, queue, (*cnx)->a, u);
+				del_cnx(&tmp, *cnx);
 			}
 			*cnx = (*cnx)->next;
 		}
@@ -82,56 +57,40 @@ int	algo(int *col, int *father, int *dist, t_queue *queue, t_cnx **cnx)
 		queue = adr;
 		if (queue && u == queue->room)
 			queue = queue->next;
-		col[u] = 2;
+		tabs->col[u] = 2;
 	}
 	*cnx = tmp;
-
-	int a;
-
-	a = 0;
-	while (father[a] != -1)
-	{
-		printf("%d\n", father[a]);
-		printf("col : %d\n", col[a]);
-		a++;
-	}
-	printf("distance %d\n", dist[7]);
-	printf("distance %d\n", dist[4]);
-	printf("distance %d\n", dist[3]);
-	while (*cnx)
-	{
-		printf("[%d]-[%d]\n", (*cnx)->a, (*cnx)->b);
-		*cnx = (*cnx)->next;
-	}
 	return (0);
 }
 
 int solve(t_cnx **cnx, t_data *data)
 {
+	t_tabs *tabs;
 	t_queue	*queue;
-	int	*col;
-	int	*dist;
-	int	*father;
 
+	tabs = malloc(sizeof(t_tabs));
 	queue = malloc(sizeof(t_queue));
-	col = malloc(sizeof(int) * data->rooms);
-	father = malloc(sizeof(int) * data->rooms);
-	dist = malloc(sizeof(int) * data->rooms);
+	tabs->col = malloc(sizeof(int) * data->rooms + 1);
+	tabs->father = malloc(sizeof(int) * data->rooms + 1);
+	tabs->dist = malloc(sizeof(int) * data->rooms + 1);
 
-	init(col, father, dist, data);
-	
-	
-	int a = 0;
-	while (a <= data->rooms)
-	{
+	init_tabs(tabs->col, tabs->father, tabs->dist, data);
+
+
+	/*	int a = 0;
+		while (a <= data->rooms)
+		{
 		printf("%d\n", col[a]);
 		a++;
-	}
-		printf("%d\n", col[7]);
-//	exit (0);
-	queue->room = ft_atoi(data->start);
-	col[queue->room] = 1;
-	dist[queue->room] = 0;
-	algo(col, father, dist, queue, cnx);
+		}
+		printf("%d\n", col[7]); */
+	//	exit (0);
+
+	queue->room = data->start_id;
+	printf("%d\n", queue->room);
+	tabs->col[queue->room] = 1;
+	tabs->dist[queue->room] = 0;
+	algo(tabs, queue, cnx);
+	exit (0);
 	return (0);
 }

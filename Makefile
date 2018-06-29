@@ -29,6 +29,7 @@ LEMIN_SRC =	lemin.c\
 		del_cnx.c\
 		assign_nb.c\
 		convert.c\
+		init_tabs.c\
 
 LEMIN_OBJ = $(LEMIN_SRC:.c=.o)
 

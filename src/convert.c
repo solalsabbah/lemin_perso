@@ -50,5 +50,10 @@ void	add_cnx(t_links **l, t_room **room, t_data *data)
 		*l = (*l)->next;
 	}
 	cnx = tmp;
+	if ((data->start_id = find_id(data->start, room)) == -1 || (data->end_id = find_id(data->end, room)) == -1)
+	{
+		printf("Error\n");
+		exit (0);
+	}	
 	solve(&cnx, data);
 }
