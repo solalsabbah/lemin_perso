@@ -32,6 +32,7 @@ int	add_to_room(char *name, t_room **room)
 	(*room)->next = malloc(sizeof(t_room));
 	(*room)->next->name = name;
 	(*room)->next->nb = (*room)->nb + 1;
-	(*room)->next->next = NULL;
+	(*room) = (*room)->next;
+	(*room)->next = NULL;
 	return (1);
 }

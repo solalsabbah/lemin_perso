@@ -12,6 +12,20 @@
 
 #include "lemin.h"
 
+int	path(t_tabs *tabs, t_data *data)
+{
+	int a;
+	
+	a = 0;
+	while (data->id[a] != NULL)
+	{
+		printf("%s\n", data->id[a]);
+	//	printf("%s [%d]\n", data->id[a], tabs->dist[a]);
+		a++;	
+	}
+	return (0);
+}
+
 void	fill_tabs(t_tabs *tabs, t_queue *queue, int cnx, int u)
 {
 	tabs->col[cnx] = 1;
@@ -23,13 +37,12 @@ void	fill_tabs(t_tabs *tabs, t_queue *queue, int cnx, int u)
 	queue->next->room = cnx;
 	queue->next->next = NULL;
 	queue = queue->next;
-
 }
 
 int	algo(t_tabs *tabs, t_queue *queue, t_cnx **cnx)
 {
 	int 	u;
-	t_cnx *tmp;
+	t_cnx	*tmp;
 	void 	*adr;
 	void 	*start;
 
@@ -73,24 +86,11 @@ int solve(t_cnx **cnx, t_data *data)
 	tabs->col = malloc(sizeof(int) * data->rooms + 1);
 	tabs->father = malloc(sizeof(int) * data->rooms + 1);
 	tabs->dist = malloc(sizeof(int) * data->rooms + 1);
-
 	init_tabs(tabs->col, tabs->father, tabs->dist, data);
-
-
-	/*	int a = 0;
-		while (a <= data->rooms)
-		{
-		printf("%d\n", col[a]);
-		a++;
-		}
-		printf("%d\n", col[7]); */
-	//	exit (0);
-
 	queue->room = data->start_id;
-	printf("%d\n", queue->room);
 	tabs->col[queue->room] = 1;
 	tabs->dist[queue->room] = 0;
 	algo(tabs, queue, cnx);
-	exit (0);
+	path(tabs, data);
 	return (0);
 }

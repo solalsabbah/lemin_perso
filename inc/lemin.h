@@ -26,17 +26,17 @@ struct		s_room
    	char	*name;
     	int	nb;
     t_room	*next;
-
 };
 
 typedef struct	s_data
 {	
+	char		**id;
 	char		*start;
-	int		start_id;
 	char		*end;
+	int		start_id;
 	int		end_id;
 	int		rooms;
-	int			ants;
+	int		ants;
 }				t_data;
 
 typedef struct s_queue t_queue;
