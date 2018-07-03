@@ -30,6 +30,9 @@ LEMIN_SRC =	lemin.c\
 		assign_nb.c\
 		convert.c\
 		init_tabs.c\
+		add_to_path.c\
+		adr_last_room.c\
+		path.c\
 
 LEMIN_OBJ = $(LEMIN_SRC:.c=.o)
 

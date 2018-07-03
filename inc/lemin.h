@@ -19,6 +19,15 @@
 # include <stdio.h>
 # include "../libft/libft.h"
 
+typedef struct s_path t_path;
+
+struct		s_path
+{
+   	int	id;
+	int	ant;
+    t_path	*next;
+};
+
 typedef struct s_room t_room;
 
 struct		s_room
@@ -84,7 +93,7 @@ void	del_cnx(t_cnx **cnx, t_cnx *elem);
 
 
 void	add_cnx(t_links **l, t_room **room, t_data *data);
-void	init_tabs(int *col, int *father, int *dist, t_data *data);
+void	init_tabs(t_tabs *tabs, t_data *data);
 
 int		add_to_room(char *name, t_room **room);
 int		assign_nb(t_links **l, t_data *data);
@@ -92,5 +101,8 @@ int	 	is_link(char *line, t_links **l);
 int		parser(t_file *file);
 int		mytree(t_links *l, t_data *data);
 int		solve(t_cnx **cnx, t_data *data);
+int	path(t_tabs *tabs, t_data *data);
 
+t_path		*add_to_path(t_path **path, int id);
+t_path	*adr_last_room(t_path **path, t_path *last);
 #endif
